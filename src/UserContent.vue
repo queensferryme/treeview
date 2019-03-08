@@ -21,8 +21,7 @@ export default {
       // initialize TOC tree
       let timeoutId = undefined;
       this.$emit('update:nodes', this.toc);
-      console.log(this.passage);
-      // scroll events
+      // debounce scroll events
       this.$refs['user-content'].addEventListener('scroll', () => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
@@ -144,11 +143,13 @@ int weekday() {\n\
       for (let i = 2; i < prev.length; i++)
         prevElt = prevElt.$children[prev[i]];
       let scrollTop = this.$refs['user-content'].scrollTop;
-      if ((nextElt.offsetTop > prevElt.offsetTop &&
-          nextElt.offsetTop > scrollTop) ||
-          (nextElt.offsetTop < prevElt.offsetTop &&
-          nextElt.offsetTop < scrollTop &&
-          nextElt !== this.current))
+      if (
+        (nextElt.offsetTop > prevElt.offsetTop &&
+        nextElt.offsetTop > scrollTop) ||
+        (nextElt.offsetTop < prevElt.offsetTop &&
+        nextElt.offsetTop < scrollTop &&
+        nextElt !== this.current)
+      )
         this.$refs['user-content'].scrollTo({
           top: nextElt.offsetTop,
           behavior: 'smooth'
